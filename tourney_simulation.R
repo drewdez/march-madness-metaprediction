@@ -56,10 +56,11 @@ simMultipleTourneys <- function(results = getResults(),
     rank.worst <- apply(kaggleRanks, 2, max)
     rank.1 <- apply(kaggleRanks, 2, function(col) sum(col == 1) / times)
     rank.2 <- apply(kaggleRanks, 2, function(col) sum(col == 2) / times)
+    exp.winnings <- rank.1 * 10000 + rank.2 * 5000
     
-    kaggle <- data.frame(score.mean, score.best, score.worst,
-                         rank.mean, rank.best, rank.worst, rank.1, rank.2)
-    kaggle <- kaggle[order(kaggle$rank.mean),]
+    kaggle <- data.frame(score.mean, score.best, score.worst, rank.mean,
+                         rank.best, rank.worst, rank.1, rank.2, exp.winnings)
+    kaggle <- kaggle[order(-kaggle$exp.winnings, kaggle$rank.mean),]
     
     list(teamResults = teamResults,
          kaggleResults = kaggle)
