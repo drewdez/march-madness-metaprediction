@@ -2,12 +2,12 @@ simMultipleTourneys <- function(results = getResults(),
                                 preds = getAllSubmissions(file = 'data/allPredictions.csv'),
                                 probs = getMedianPredictions(preds),
                                 predecessors = getSlotPredecessors(),
-                                times = 10000,
-                                restartTourney = FALSE,
+                                times = 100,
+                                startRound = -1,
                                 teamSeeds = prepareTeamSeeds(),
                                 teamNames = getAllTourneyTeams()) {
     teams <- names(teamNames)
-    if(restartTourney) results$result <- -1
+    if(startRound >= 0) results[results$round >= startRound,]$result <- -1
     for(i in 1:times) {
         sim <- simTourney(results, probs, predecessors, teamSeeds = teamSeeds)
         teamResults <- getRoundsByTeam(sim, teams)
