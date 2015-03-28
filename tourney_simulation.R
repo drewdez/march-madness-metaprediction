@@ -151,7 +151,7 @@ getScores <- function(allSubmissions, results, returnDF = FALSE) {
         -1/length(actual)*(sum(actual*log(predicted)+(1-actual)*log(1-predicted)))
     }
     
-    data <- merge(results, allSubmissions, by = 'id')
+    data <- merge(results[results$round > 0,], allSubmissions, by = 'id')
     scores <- apply(data[, -c(1:3)], 2, function(col) logLoss(data$result, col))
     if(returnDF) {
         scoreDF <- data.frame(entry = names(scores),
