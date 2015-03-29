@@ -57,14 +57,14 @@ $metaprediction = {
     }
   },
   rounds: [
-    {teams: 68},
-    {teams: 64, dataField: 'Round.1'},
-    {teams: 32, dataField: 'Round.2'},
-    {teams: 16, dataField: 'Sweet.16'},
-    {teams: 8, dataField: 'Elite.8'},
-    {teams: 4, dataField: 'Final.4'},
-    {teams: 2, dataField: 'Championship'},
-    {teams: 1, dataField: 'Win'}
+    {dataField: ''},
+    {dataField: 'Round.1'},
+    {dataField: 'Round.2'},
+    {dataField: 'Sweet.16'},
+    {dataField: 'Elite.8'},
+    {dataField: 'Final.4'},
+    {dataField: 'Championship'},
+    {dataField: 'Win'}
   ],
   disableFutureRounds: function(round) {
     $('.round-button').filter(function() {
@@ -79,9 +79,9 @@ $metaprediction = {
   },
   reloadTables: function(round) {
     $('#kaggle-table').bootstrapTable('refresh',
-        {silent: true, url: 'tables/kaggle-' + this.rounds[round].teams + '.json'});
+        {silent: true, url: 'tables/kaggle-' + round + '.json'});
     $('#team-table').bootstrapTable('refresh',
-        {silent: true, url: 'tables/teams-' + this.rounds[round].teams + '.json'});
+        {silent: true, url: 'tables/teams-' + round + '.json'});
   },
   loadRound: function(round) {
     if (round !== this.currentRound) {
