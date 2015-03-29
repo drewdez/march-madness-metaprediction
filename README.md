@@ -95,7 +95,7 @@ predicting the 2015 tournament, the default, which is the output of
 
 - `times`: The number of tournaments you want to simulate. The default value is
 100 (set intentionally low for use during initial exploration). As a benchmark,
-a simulation of 10,000 tournaments takes approximately two hours on a 2012
+a simulation of 10,000 tournaments takes approximately one hour on a 2012
 MacBook Air.
 
 - `startRound`: The round of the tournament at which you'd like to start
