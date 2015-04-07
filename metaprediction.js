@@ -1,7 +1,7 @@
 $metaprediction = {
   setup: function() {
-    this.currentRound = 6;
-    this.disableFutureRounds(this.currentRound);
+    this.currentRound = 0;
+    // this.disableFutureRounds(this.currentRound);
     this.activatePill(this.currentRound);
 
     $('.round-button').click(function() {
