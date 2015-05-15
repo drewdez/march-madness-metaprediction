@@ -1,46 +1,16 @@
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  margin-bottom: 60px;
-  border-top: 8px solid #555;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  background-color: #555;
-  color: #eee;
-}
-
-.footer > .container {
-  padding: 20px 15px 0 15px;
-}
-
-.footer .social-link {
-  color: #eee;
-}
-
-.footer .social-link:hover, .footer .social-link:focus {
-  color: #428bca;
-  text-decoration: none;
-}
-
-.container {
+.content-container {
   width: auto;
   max-width: 900px;
-  padding: 0 15px;
-}
-
-.nav {
-  margin: 20px 0;
 }
 
 .nav-pills {
-  background-color: #f6f6f6;
+  margin: 20px 0;
+  background-color: #eee;
   border-radius: 4px;
+}
+
+.nav-pills li a:hover {
+  background-color: #ddd;
 }
 
 .controls {
@@ -49,6 +19,18 @@ body {
 
 .tab-content {
   margin-bottom: 20px;
+}
+
+.fixed-table-container {
+  background-color: #fff;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #eee;
+}
+
+.table-hover>tbody>tr:hover {
+  background-color: #ddd;
 }
 
 .text-muted {
