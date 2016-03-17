@@ -2,3 +2,8 @@ site
 output
 .RData
 .Rhistory
+data_2015
+data/all_preds
+tourney_results_2015.xlsx
+prepare_2016_files.R
+notes.md

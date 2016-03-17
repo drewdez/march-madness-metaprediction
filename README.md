@@ -7,7 +7,7 @@ prediction competition.
 At each stage of the tournament, I've used this code to simulate the remainder
 of the tournament in order to predict both basketball and Kaggle outcomes. The
 resulting predictions can be seen [here][metaprediction-url], and will be
-updated following each round of the 2015 Tournament. These simulations use the
+updated following each round of the 2016 Tournament. These simulations use the
 median predictions across all entries as the true win probabilities for all
 potential matchups, but the code enables you to use any set of probabilities.
 
@@ -34,11 +34,11 @@ directory is located in your home directory).
 > setwd('~/march-madness-metaprediction')
 ```
 
-4. If necessary, install the xlsx package (used for reading tournament results
+4. If necessary, install the readxl package (used for reading tournament results
 from `tourney_results.xlsx`). You can skip this step if you are preparing
 tournament results another way.
 ```r
-> install.packages('xlsx')
+> install.packages('readxl')
 ```
 
 4. Source `tourney_simulation.R`, and you're ready to start simulating.
@@ -90,7 +90,7 @@ of `getMedianPredictions(getAllSubmissions(file = 'data/allPredictions.csv'))`.
 - `predecessors`: A data frame containing the `strongseed` and `weakseed` for
 each tournament slot, with the tournament slots as the row names. Slot and seed
 values come from the Kaggle-provided slots and seed files. As long as you're
-predicting the 2015 tournament, the default, which is the output of
+predicting the 2016 tournament, the default, which is the output of
 `getSlotPredecessors()`, should be suitable.
 
 - `times`: The number of tournaments you want to simulate. The default value is
@@ -108,13 +108,13 @@ tournament round.
 
 - `teamSeeds`: A vector of team IDs with one value for each of the 68 tournament
 teams, and the corresponding seeds as the names. Seed and Team ID values come
-from the Kaggle-provided seeds file. As long as you're predicting the 2015
+from the Kaggle-provided seeds file. As long as you're predicting the 2016
 tournament, the default, which is the output of `prepareTeamSeeds()`, should be
 suitable.
 
 - `teamNames`: A vector of team names with one value for each of the 68
 tournament teams, and the corresponding team IDs as the names. Team ID values
-come from the Kaggle-provided teams file. As long as you're predicting the 2015
+come from the Kaggle-provided teams file. As long as you're predicting the 2016
 tournament, the default, which is the output of `getAllTourneyTeams()`, should
 be suitable.
 
@@ -130,8 +130,8 @@ Round of 64.
 ## Acknowledgements
 
 `tourney_results.xlsx` is a modified version of a results tracking spreadsheet
-created by the administrators of the Kaggle competition.
+created by the administrators of the 2015 Kaggle competition.
 
 [metaprediction-url]: http://drewdez.com/march-madness-metaprediction/
-[kaggle-url]: http://kaggle.com/c/march-machine-learning-mania-2015
+[kaggle-url]: http://kaggle.com/c/march-machine-learning-mania-2016
 [gh-pages-url]: https://github.com/drewdez/march-madness-metaprediction/tree/gh-pages

@@ -26,7 +26,7 @@ simMultipleTourneys <- function(results = getResults(),
     colnames(teamResultsDF) <- teamNames[as.character(teams)]
     rownames(teamResultsDF) <- 1:times
     rownames(entryResultsDF) <- 1:times
-    
+
     Round.1 <- apply(teamResultsDF, 2, function(col) sum(col >= 1) / times)
     Round.2 <- apply(teamResultsDF, 2, function(col) sum(col >= 2) / times)
     Sweet.16 <- apply(teamResultsDF, 2, function(col) sum(col >= 3) / times)
@@ -34,7 +34,7 @@ simMultipleTourneys <- function(results = getResults(),
     Final.4 <- apply(teamResultsDF, 2, function(col) sum(col >= 5) / times)
     Championship <- apply(teamResultsDF, 2, function(col) sum(col >= 6) / times)
     Win <- apply(teamResultsDF, 2, function(col) sum(col >= 7) / times)
-    
+
     teamResults <- data.frame(Round.1, Round.2, Sweet.16, Elite.8,
                               Final.4, Championship, Win)
     teamResults <- teamResults[order(-teamResults$Win,
@@ -44,10 +44,10 @@ simMultipleTourneys <- function(results = getResults(),
                                      -teamResults$Sweet.16,
                                      -teamResults$Round.2,
                                      -teamResults$Round.1),]
-    
+
     kaggleRanks  <- t(apply(entryResultsDF, 1,
                             function(row) rank(row, ties.method = 'min')))
-    
+
     score.mean <- apply(entryResultsDF, 2, mean)
     score.best <- apply(entryResultsDF, 2, min)
     score.worst <- apply(entryResultsDF, 2, max)
@@ -56,12 +56,17 @@ simMultipleTourneys <- function(results = getResults(),
     rank.worst <- apply(kaggleRanks, 2, max)
     rank.1 <- apply(kaggleRanks, 2, function(col) sum(col == 1) / times)
     rank.2 <- apply(kaggleRanks, 2, function(col) sum(col == 2) / times)
-    exp.winnings <- rank.1 * 10000 + rank.2 * 5000
-    
+    rank.3 <- apply(kaggleRanks, 2, function(col) sum(col == 3) / times)
+    rank.4 <- apply(kaggleRanks, 2, function(col) sum(col == 4) / times)
+    rank.5 <- apply(kaggleRanks, 2, function(col) sum(col == 5) / times)
+    exp.winnings <- rank.1 * 10000 + rank.2 * 6000 + rank.3 * 4000 +
+        rank.4 * 3000 + rank.5 * 2000
+
     kaggle <- data.frame(score.mean, score.best, score.worst, rank.mean,
-                         rank.best, rank.worst, rank.1, rank.2, exp.winnings)
+                         rank.best, rank.worst, rank.1, rank.2, rank.3,
+                         rank.4, rank.5, exp.winnings)
     kaggle <- kaggle[order(-kaggle$exp.winnings, kaggle$rank.mean),]
-    
+
     list(teamResults = teamResults,
          kaggleResults = kaggle)
 }
@@ -97,13 +102,14 @@ getRoundByTeam <- function(results, team) {
 getRoundsByTeam <- Vectorize(getRoundByTeam, 'team')
 
 getResults <- function() {
-    library(xlsx)
-    rowIndex <- 1:68
-    colIndex <- 13:15
-    results <- read.xlsx('tourney_results.xlsx', sheetIndex = 1,
-                         colIndex = colIndex, rowIndex = rowIndex,
-                         colClasses = c('character', 'character', 'integer'),
-                         stringsAsFactors = F)
+    library(readxl)
+    # rowIndex <- 1:68
+    # colIndex <- 13:15
+    # results <- read.xlsx('tourney_results.xlsx', sheetIndex = 1,
+    #                      colIndex = colIndex, rowIndex = rowIndex,
+    #                      colClasses = c('character', 'character', 'integer'),
+    #                      stringsAsFactors = F)
+    results <- read_excel('tourney_results.xlsx', sheet = 'results_for_sim')
     rownames(results) <- results$slot
     results$round <- 0
     results[substr(results$slot, 1, 1) == 'R',]$round <-
@@ -145,12 +151,12 @@ getMedianPredictions <- function(allSubmissions) {
 }
 
 getScores <- function(allSubmissions, results, returnDF = FALSE) {
-    
+
     logLoss <- function(actual, predicted, eps=0.00001) {
         predicted <- pmin(pmax(predicted, eps), 1-eps)
         -1/length(actual)*(sum(actual*log(predicted)+(1-actual)*log(1-predicted)))
     }
-    
+
     data <- merge(results[results$round > 0,], allSubmissions, by = 'id')
     scores <- apply(data[, -c(1:3)], 2, function(col) logLoss(data$result, col))
     if(returnDF) {
@@ -166,23 +172,24 @@ getScores <- function(allSubmissions, results, returnDF = FALSE) {
     }
 }
 
-prepareTeamSeeds <- function(seedsFile = 'data/tourney_seeds_2015.csv') {
+prepareTeamSeeds <- function(seedsFile = 'data/tourney_seeds_2016.csv') {
     seedsDF <- read.csv(seedsFile, stringsAsFactors = F)
     teams <- seedsDF$team
     names(teams) <- seedsDF$seed
     teams
 }
 
-getAllTourneyTeams <- function(teamsFile = 'data/teams.csv',
-                        seedsFile = 'data/tourney_seeds_2015.csv') {
+getAllTourneyTeams <- function(teamsFile = 'data/Teams.csv',
+                        seedsFile = 'data/tourney_seeds_2016.csv') {
     teamsDF <- read.csv(teamsFile, stringsAsFactors = F)
+    colnames(teamsDF) <- tolower(colnames(teamsDF))
     seedsDF <- read.csv(seedsFile, stringsAsFactors = F)
     teams <- teamsDF$team_name
     names(teams) <- teamsDF$team_id
     teams[names(teams) %in% seedsDF$team]
 }
 
-getSlotPredecessors <- function(slotsFile = 'data/tourney_slots_2015.csv') {
+getSlotPredecessors <- function(slotsFile = 'data/tourney_slots_2016.csv') {
     slots <- read.csv(slotsFile, stringsAsFactors = F)
     rownames(slots) <- slots$slot
     slots$season <- NULL
@@ -201,13 +208,13 @@ getTeamFromID <- function(id, result, type = 'winner') {
     as.integer(substr(id, start, start + 3))
 }
 
-getIDFromTeams <- function(teamA, teamB, season = 2015) {
+getIDFromTeams <- function(teamA, teamB, season = 2016) {
     team1 <- min(teamA, teamB)
     team2 <- max(teamA, teamB)
     paste(season, team1, team2, sep = '_')
 }
 
-getIDFromSlot <- function(slot, winners, predecessors, season = 2015) {
+getIDFromSlot <- function(slot, winners, predecessors, season = 2016) {
     teamA <- winners[predecessors[slot, 1]]
     teamB <- winners[predecessors[slot, 2]]
     if(is.na(teamA) || is.na(teamB)) return(NA)
