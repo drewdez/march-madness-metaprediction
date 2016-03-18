@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Simulating the results of the 2015 NCAA Basketball Tournament and the corresponding March Machine Learning Mania Kaggle competition.">
+    <meta name="description" content="Simulating the results of the 2016 NCAA Basketball Tournament and the corresponding March Machine Learning Mania Kaggle competition.">
     <meta name="author" content="Andrew Desautels">
 
-    <title>drewdez.com: 2015 March Madness Metaprediction</title>
+    <title>drewdez.com: 2016 March Madness Metaprediction</title>
 
     <link href="//drewdez.com/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.6.0/bootstrap-table.min.css">
@@ -84,15 +84,15 @@
     <div class="container content-container">
 
       <div class="page-header">
-        <h1>2015 March Madness Metaprediction</h1>
+        <h1>2016 March Madness Metaprediction</h1>
       </div>
       <p class="lead">Wherein Kagglers collectively predict the winners of the
-        <a href="http://www.kaggle.com/c/march-machine-learning-mania-2015">March Machine Learning Mania</a>
+        <a href="http://www.kaggle.com/c/march-machine-learning-mania-2016">March Machine Learning Mania</a>
         prediction contest (and, of course, the outcome of the NCAA Tournament itself).
       </p>
       <p>The tables below were created by simulating the NCAA Tournament 10,000
         times at each completed stage of the tournament, using the median Kaggle
-        March Machine Learning Mania 2015 predictions as the true probabilities
+        March Machine Learning Mania 2016 predictions as the true probabilities
         for all potential matchups.
       </p>
       <p>
@@ -135,7 +135,7 @@
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane fade active in" id="kaggle">
             <p>This table below shows a summary of the simulation of the Kaggle
-              March Machine Learning Mania 2015 competition, including mean
+              March Machine Learning Mania 2016 competition, including mean
               scores, mean ranks, and expected winnings. Click column headers to
               sort, and use the controls at the top right of the table to search
               the table and to select columns.
@@ -150,7 +150,7 @@
                      data-page-size="25"
                      data-sort-name="exp.winnings"
                      data-sort-order="desc"
-                     data-url="tables/kaggle-0.json">
+                     data-url="tables/kaggle-1.json">
                 <thead>
                   <tr>
                     <th data-formatter="$metaprediction.formatters.indexFormatter"
@@ -229,6 +229,29 @@
                         data-formatter="$metaprediction.formatters.pctFormatter">
                       2nd %
                     </th>
+                    <th data-field="rank.3"
+                        data-sortable="true"
+                        data-halign="center"
+                        data-align="right"
+                        data-formatter="$metaprediction.formatters.pctFormatter">
+                      3rd %
+                    </th>
+                    <th data-field="rank.4"
+                        data-sortable="true"
+                        data-halign="center"
+                        data-align="right"
+                        data-visible="false"
+                        data-formatter="$metaprediction.formatters.pctFormatter">
+                      4th %
+                    </th>
+                    <th data-field="rank.5"
+                        data-sortable="true"
+                        data-halign="center"
+                        data-align="right"
+                        data-visible="false"
+                        data-formatter="$metaprediction.formatters.pctFormatter">
+                      5th %
+                    </th>
                     <th data-field="exp.winnings"
                         data-sortable="true"
                         data-halign="center"
@@ -255,7 +278,7 @@
                      data-sort-name="Win"
                      data-sort-order="desc"
                      data-row-style="$metaprediction.formatters.teamRowFormatter"
-                     data-url="tables/teams-0.json">
+                     data-url="tables/teams-1.json">
                 <thead>
                   <tr>
                     <th data-field="_row"
@@ -335,7 +358,7 @@
       <div class="container">
         <p>
           &copy;
-          2015
+          2016
           <a class='social-link' href='mailto:drewdez@gmail.com'>
             Andrew Desautels
           </a>
