@@ -1,6 +1,6 @@
 $metaprediction = {
   setup: function() {
-    this.currentRound = 5;
+    this.currentRound = 6;
     this.disableFutureRounds(this.currentRound);
     this.activatePill(this.currentRound);
 
